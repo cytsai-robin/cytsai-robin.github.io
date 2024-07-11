@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
             .catch(error => console.error('Error loading page:', error));
     };
 
-    const initialPath = window.location.hash.substring(1) || window.location.pathname;
+    const initialPath = window.location.pathname === '/' ? '/home' : window.location.pathname;
     loadPage(initialPath, false);
 
     document.querySelectorAll('nav ul li a').forEach(link => {
