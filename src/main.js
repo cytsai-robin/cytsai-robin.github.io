@@ -22,18 +22,26 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
                 document.querySelector('.menu-toggle').classList.remove('active');
                 document.querySelector('nav').classList.remove('active');
+                updateActiveLink(page);
             })
             .catch(error => console.error('Error loading page:', error));
     };
 
-    const initialPath = window.location.pathname === '/' ? '/home' : window.location.pathname;
+    const updateActiveLink = (page) => {
+        document.querySelectorAll('nav ul li a').forEach(link => {
+            link.classList.remove('active');
+            if (link.getAttribute('href') === page) {
+                link.classList.add('active');
+            }
+        });
+    };
+
+    const initialPath = window.location.pathname;
     loadPage(initialPath, false);
 
     document.querySelectorAll('nav ul li a').forEach(link => {
         link.addEventListener('click', (event) => {
             event.preventDefault();
-            document.querySelectorAll('nav ul li a').forEach(link => link.classList.remove('active'));
-            link.classList.add('active');
             const page = link.getAttribute('href');
             loadPage(page);
         });
