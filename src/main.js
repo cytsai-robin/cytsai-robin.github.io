@@ -36,7 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     };
 
-    const initialPath = window.location.pathname;
+    const initialPath = window.location.hash.substring(1) || window.location.pathname;
     loadPage(initialPath, false);
 
     document.querySelectorAll('nav ul li a').forEach(link => {
