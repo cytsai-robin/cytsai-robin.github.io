@@ -1,0 +1,118 @@
+/* home.html */
+main {
+    flex: 1; /* 使 main 擴展填滿剩餘空間 */
+    padding: 20px;
+    max-width: 950px;
+    width: 100%;
+    margin: 0 auto; /* 使內容居中 */
+    box-sizing: border-box;
+}
+
+main h2 {
+    color: #333;
+    text-align: center;
+    font-size: 2em;
+    margin-bottom: 50px; /* 大標題和內容之間的間隔 */
+}
+
+.intro {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+.profile-photo {
+    margin-right: 20px;
+    flex: 0 0 auto;
+}
+
+.profile-photo img {
+    width: 100%;
+    height: auto;
+    max-width: 400px; /* 設置圖片最大寬度 */
+    border-radius: 10px; /* 添加圓角 */
+    margin-right: 10px; /* 與文本之間的間距 */
+}
+
+.intro-text {
+    flex: 1;
+    min-width: 300px;
+    text-align: justify; /* 兩端對齊 */
+    text-justify: inter-word; /* 調整字間距以達到對齊效果 */
+    line-height: 1.5; /* 調整行間距 */
+    padding: 0 10px; /* 增加內間距，避免內容貼齊邊緣 */
+}
+
+.section-item {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 50px; /* 增加每一欄中間的間隔 */
+    flex-wrap: wrap;
+}
+
+.section-item img {
+    width: 100%;
+    height: auto;
+    max-width: 200px; /* 自定義圖標大小 */
+    flex-shrink: 0;
+    margin-right: 50px; /* 增加圖片和文字之間的間隔 */
+}
+
+.section-item .text {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-width: 300px;
+}
+
+.section-item p {
+    margin: 0 0 20px; /* 調整項之間的間隔 */
+    font-weight: bold; /* 設置為粗體 */
+}
+
+.main-item {
+    font-size: 1.5em; /* 增加主要項目的字體大小 */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-weight: bold; /* 設置為粗體 */
+}
+
+/* 在寬度小於 600px 時採用上下形式 */
+@media (max-width: 600px) {
+    .section-item {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .section-item img {
+        max-width: 80%; /* 圖片在小屏幕上占滿寬度 */
+        margin-right: 0;
+        margin-bottom: 20px;
+    }
+
+    .section-item .text {
+        align-items: center;
+        text-align: center;
+        min-width: auto;
+    }
+
+    .main-item {
+        white-space: normal; /* 允許換行 */
+    }
+
+    .profile-photo {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+        margin-right: 0;
+        margin-bottom: 20px;
+    }
+
+    .profile-photo img {
+        width: 80%; /* 大頭貼圖片在小屏幕上占滿寬度 */
+        max-width: 250px; /* 設置最大寬度 */
+    }
+}

@@ -1,0 +1,33 @@
+# Node.js dependencies
+/node_modules/
+
+# Compiled binary addons (like bindings for node-gyp)
+/build/
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Environment variables
+.env
+
+# Log files
+*.log
+
+# IDE or editor files
+.vscode/
+.idea/
+
+# Dependency lock files
+package-lock.json
+yarn.lock
+
+# Ignore npm debug log
+npm-debug.log*
+
+# Ignore user-specific files
+.npmrc
+
+# Exclude server specific files
+server.js
+

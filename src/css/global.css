@@ -1,0 +1,194 @@
+/* 全局字體設置 */
+body {
+    font-family: 'Arial', sans-serif; /* 這裡可以替換成你想要的字體 */
+}
+
+/* 通用樣式 */
+html, body {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #f4f4f4;
+}
+
+header {
+    background: #333;
+    color: #fff;
+    text-align: center;
+    width: 100%;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* 垂直居中 */
+    align-items: center;
+    min-height: 300px; /* 設置固定高度 */
+    position: relative;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 3.2em;
+    position: absolute;
+    top: 55%; /* 可調參數，控制標題的垂直位置 */
+    transform: translateY(-50%);
+}
+
+nav {
+    position: absolute;
+    font-size: 1.1em;
+    bottom: 21px; /* 可調參數，控制導航欄的垂直位置 */
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+    text-align: center;
+    font-size: 1.2em;
+    margin: 0; /* 清除默認margin */
+}
+
+nav ul li {
+    display: inline;
+    margin: 0 10px;
+}
+
+nav ul li a {
+    color: #fff;
+    text-decoration: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+nav ul li a.active {
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+hr {
+    border: none;
+    border-top: 1px solid #ccc;
+    margin: 20px 0;
+}
+
+/* footer */
+footer {
+    background: #333;
+    color: #fff;
+    text-align: center;
+    padding: 30px 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    margin-top: auto; /* 將footer推到頁面底部 */
+    flex-direction: column; /* 將footer內容垂直排列 */
+}
+
+footer div:first-child {
+    text-align: center; /* 強制置中 */
+}
+
+.contact-info {
+    display: flex;
+    justify-content: center;
+    gap: 20px; /* 調整左右鏈接之間的間隔 */
+    margin-top: 10px; /* 調整鏈接和版權聲明之間的間隔 */
+}
+
+.contact-info a {
+    color: #fff;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+}
+
+.contact-info a i {
+    margin-right: 5px; /* 調整圖標和文字之間的間距 */
+}
+
+.contact-info a:hover {
+    text-decoration: underline;
+}
+
+.contact-info a:hover i {
+    transform: scale(1.1);
+    transition: transform 0.3s ease;
+}
+
+/* footer 小屏幕 */
+@media (max-width: 600px) {
+    .contact-info {
+        flex-direction: column; /* 在小屏幕上垂直排列 */
+    }
+}
+
+/* Menu Toggle Button */
+.menu-toggle {
+    display: none;
+}
+
+@media (max-width: 600px) {
+    header h1 {
+        font-size: 2.5em; /* 調整手機上的標題字體大小 */
+    }
+    
+    .menu-toggle {
+        display: block;
+        cursor: pointer;
+        font-size: 2em;
+        margin: 10px;
+        color: #fff; /* 確保按鈕顯示為白色 */
+        position: absolute;
+        top: 20px;
+        left: 20px;
+    }
+
+    nav {
+        position: fixed;
+        top: 0;
+        left: -100%;
+        width: 120px;
+        height: 100%;
+        background: #333;
+        flex-direction: column;
+        justify-content: flex-start; /* 菜單項目靠上對齊 */
+        align-items: flex-start; /* 左對齊 */
+        padding: 20px;
+        transition: left 0.3s ease-in-out;
+        z-index: 10;
+    }
+
+    nav.active {
+        left: 0;
+    }
+
+    nav ul {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        margin-top: 20px; /* 菜單項目頂部間距 */
+    }
+
+    nav ul li {
+        display: flex;
+        /* margin: 10px 0; */
+        justify-content: center; /* 按鈕置中 */
+    }
+
+    nav ul li a {
+        font-size: 1em;
+        padding: 10px 20px;
+        color: #fff;
+        display: block;
+        width: 100%;
+    }
+}

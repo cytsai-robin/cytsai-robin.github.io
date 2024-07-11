@@ -1,0 +1,66 @@
+/* honors.html */
+main {
+    flex: 1; /* 使 main 擴展填滿剩餘空間 */
+    padding: 20px;
+    max-width: 950px;
+    width: 100%;
+    margin: 0 auto; /* 使內容居中 */
+    box-sizing: border-box;
+}
+
+main h2 {
+    color: #333;
+    text-align: center;
+    font-size: 2em;
+    margin-bottom: 50px; /* 大標題和內容之間的間隔 */
+}
+
+.honor-item {
+    display: flex;
+    margin-bottom: 20px;
+    padding: 0 10px; /* 增加內間距，避免內容貼齊邊緣 */
+}
+
+.year {
+    font-weight: bold;
+    margin-right: 10px;
+    width: 100px; /* 調整年份的寬度 */
+}
+
+.description {
+    flex: 1;
+}
+
+.certificates {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around; /* 調整間隔 */
+}
+
+.certificate-img {
+    width: auto;
+    height: 300px; /* 調整圖片高度 */
+    margin: 10px; /* 圖片之間的間隔 */
+    object-fit: contain; /* 保持比例 */
+}
+
+/* 針對小屏幕的響應式設計 */
+@media (max-width: 600px) {
+    .honor-item {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .year, .description {
+        margin-left: 0;
+    }
+
+    .certificates {
+        justify-content: center;
+    }
+
+    .certificate-img {
+        max-width: 100%; /* 圖片在小屏幕上占滿寬度 */
+        height: auto; /* 保持圖片比例 */
+    }
+}

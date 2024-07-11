@@ -1,0 +1,86 @@
+/* projects.html */
+main {
+    flex: 1; /* 使 main 擴展填滿剩餘空間 */
+    padding: 20px;
+    max-width: 950px;
+    width: 100%;
+    margin: 0 auto; /* 使內容居中 */
+    box-sizing: border-box;
+}
+
+main h2 {
+    color: #333;
+    text-align: center;
+    font-size: 2em;
+    margin-bottom: 50px; /* 大標題和內容之間的間隔 */
+}
+
+.project {
+    display: flex;
+    flex-direction: column;
+    gap: 40px; /* 調整每個項目之間的間隔 */
+}
+
+.project-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px; /* 調整圖片和文字之間的間隔 */
+    margin-bottom: 20px;
+    padding: 0 10px; /* 增加內間距，避免內容貼齊邊緣 */
+}
+
+.project-item img.project-icon {
+    max-width: 400px; /* 設定圖片的最大寬度 */
+    height: auto;
+    margin-right: 20px; /* 圖片與文字之間的間隔 */
+    border: 1px solid #ccc; /* 添加圖片邊框 */
+    padding: 5px; /* 添加圖片邊距 */
+    background-color: #fff; /* 圖片背景色 */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* 添加陰影效果 */
+}
+
+.project-item .text-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    max-width: 600px; /* 限制文本容器的最大寬度 */
+}
+
+.project-item .main-item {
+    font-size: 1.2em; /* 調整項目標題字體大小 */
+    font-weight: bold;
+    margin-bottom: 5px; /* 增加項目標題與描述之間的間隔 */
+}
+
+.project-item .year {
+    font-size: 0.9em;
+    color: #888;
+    margin-bottom: 10px; /* 增加年份與描述之間的間隔 */
+    white-space: nowrap; /* 防止換行 */
+}
+
+.project-item .sub-item {
+    font-size: 1em; /* 調整項目描述字體大小 */
+    color: #555; /* 調整項目描述字體顏色 */
+    line-height: 1.5; /* 增加行間距 */
+    margin-bottom: 10px; /* 增加每個描述之間的間隔 */
+}
+
+/* 在寬度小於 600px 時採用上下形式 */
+@media (max-width: 600px) {
+    .project-item {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .project-item img.project-icon {
+        max-width: 80%; /* 圖片在小屏幕上占滿寬度 */
+        margin-right: 0;
+        margin-bottom: 10px;
+    }
+
+    .sub-item {
+        text-align: left;
+    }
+}
