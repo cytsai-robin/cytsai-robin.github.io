@@ -2,15 +2,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const mainContent = document.getElementById('main-content');
 
     const routes = {
-        '/': 'home.html',
-        '/home': 'home.html',
-        '/projects': 'projects.html',
-        '/honors': 'honors.html',
-        '/cv': 'cv.html'
+        '#/home': 'home.html',
+        '#/projects': 'projects.html',
+        '#/honors': 'honors.html',
+        '#/cv': 'cv.html'
     };
 
-    const loadPage = (page, pushState = true) => {
-        const fullUrl = 'src/pages/' + routes[page];
+    const loadPage = (hash, pushState = true) => {
+        const fullUrl = 'src/pages/' + (routes[hash] || 'home.html');
 
         fetch(fullUrl)
             .then(response => response.text())
@@ -18,38 +17,38 @@ document.addEventListener('DOMContentLoaded', () => {
                 mainContent.innerHTML = data;
                 window.scrollTo(0, 0);
                 if (pushState) {
-                    history.pushState({page: page}, '', page);
+                    history.pushState({hash: hash}, '', hash);
                 }
                 document.querySelector('.menu-toggle').classList.remove('active');
                 document.querySelector('nav').classList.remove('active');
-                updateActiveLink(page);
+                updateActiveLink(hash);
             })
             .catch(error => console.error('Error loading page:', error));
     };
 
-    const updateActiveLink = (page) => {
+    const updateActiveLink = (hash) => {
         document.querySelectorAll('nav ul li a').forEach(link => {
             link.classList.remove('active');
-            if (link.getAttribute('href') === page) {
+            if (link.getAttribute('href') === hash) {
                 link.classList.add('active');
             }
         });
     };
 
-    const initialPath = window.location.hash.substring(1) || window.location.pathname;
-    loadPage(initialPath, false);
+    const initialHash = window.location.hash || '#/home';
+    loadPage(initialHash, false);
 
     document.querySelectorAll('nav ul li a').forEach(link => {
         link.addEventListener('click', (event) => {
             event.preventDefault();
-            const page = link.getAttribute('href');
-            loadPage(page);
+            const hash = link.getAttribute('href');
+            loadPage(hash);
         });
     });
 
     window.addEventListener('popstate', (event) => {
-        if (event.state && event.state.page) {
-            loadPage(event.state.page, false);
+        if (event.state && event.state.hash) {
+            loadPage(event.state.hash, false);
         }
     });
 
@@ -60,7 +59,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     if (window.innerWidth <= 600) {
-        const cvLink = document.querySelector('nav ul li a[href="/cv"]');
+        const cvLink = document.querySelector('nav ul li a[href="#/cv"]');
         cvLink.addEventListener('click', (event) => {
             event.preventDefault();
             window.open('src/assets/pdf/CV_resume-cytsai.pdf', '_blank');

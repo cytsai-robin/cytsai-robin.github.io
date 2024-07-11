@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <script type="text/javascript">
-        var pathname = window.location.pathname;
-        window.location.replace('/#' + pathname);
+        var hash = window.location.hash || '#/home';
+        window.location.replace(hash);
     </script>
     <title>Page Not Found</title>
 </head>
