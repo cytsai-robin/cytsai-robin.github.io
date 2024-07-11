@@ -2,9 +2,13 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="refresh" content="0; url=./">
     <script type="text/javascript">
-        window.location.replace('/');
+        var pathname = window.location.pathname;
+        if (pathname !== '/') {
+            window.location.replace('/#' + pathname);
+        } else {
+            window.location.replace('/');
+        }
     </script>
     <title>Page Not Found</title>
 </head>
