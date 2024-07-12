@@ -1,3 +1,10 @@
+/* src/css/global.css */
+
+/* 覆蓋 Bootstrap 的字體權重設置 */
+p, h1, h2, h3, h4, h5, h6 {
+    font-weight: normal !important; /* 強制設置為正常字體重量 */
+}
+
 /* 全局字體設置 */
 body {
     font-family: 'Arial', sans-serif; /* 這裡可以替換成你想要的字體 */
@@ -43,6 +50,12 @@ header h1 {
     position: absolute;
     top: 55%;
     transform: translateY(-50%);
+}
+
+h2 {
+    font-weight: bold !important; /* 設置粗體 */
+    margin-top: 30px !important; /* 調整上方空間 */
+    margin-bottom: 50px !important; /* 調整下方空間 */
 }
 
 main {
