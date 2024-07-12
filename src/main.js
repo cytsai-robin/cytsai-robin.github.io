@@ -1,8 +1,10 @@
 document.addEventListener('DOMContentLoaded', () => {
     const mainContent = document.getElementById('main-content');
-    const header = document.querySelector('header');
     const nav = document.querySelector('nav');
-    const menuToggle = document.querySelector('.menu-toggle');
+    const menuToggle = document.querySelector('.navbar-toggler');
+    const navbarCollapse = document.querySelector('.navbar-collapse');
+    let lastScrollTop = 0;
+    let scrollTimeout;
 
     const routes = {
         '#/home': 'home.html',
@@ -28,7 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     const updateActiveLink = (hash) => {
-        document.querySelectorAll('nav ul li a').forEach(link => {
+        document.querySelectorAll('.navbar-nav .nav-link').forEach(link => {
             link.classList.remove('active');
             if (link.getAttribute('href') === hash) {
                 link.classList.add('active');
@@ -39,15 +41,26 @@ document.addEventListener('DOMContentLoaded', () => {
     const initialHash = window.location.hash || '#/home';
     loadPage(initialHash, false);
 
-    document.querySelectorAll('nav ul li a').forEach(link => {
+    const smoothCollapseMenu = () => {
+        navbarCollapse.style.height = `${navbarCollapse.scrollHeight}px`;
+        setTimeout(() => {
+            navbarCollapse.style.height = '0';
+            setTimeout(() => {
+                navbarCollapse.classList.remove('show');
+                navbarCollapse.style.height = '';
+            }, 300); // This should match the transition duration in CSS
+        }, 10);
+    };
+
+    document.querySelectorAll('.navbar-nav .nav-link').forEach(link => {
         link.addEventListener('click', (event) => {
             event.preventDefault();
             const hash = link.getAttribute('href');
             loadPage(hash);
-            if (window.innerWidth <= 600) {
-                nav.classList.remove('active'); // Hide menu on mobile after selection
-                menuToggle.classList.remove('active');
-                menuToggle.innerHTML = '☰'; // Revert to menu icon
+            if (window.innerWidth <= 992) {
+                smoothCollapseMenu();
+                menuToggle.classList.add('collapsed');
+                menuToggle.setAttribute('aria-expanded', 'false');
             }
         });
     });
@@ -58,43 +71,31 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    menuToggle.addEventListener('click', () => {
-        menuToggle.classList.toggle('active');
-        nav.classList.toggle('active');
-        if (menuToggle.classList.contains('active')) {
-            menuToggle.innerHTML = '&times;'; // Change to close icon
-        } else {
-            menuToggle.innerHTML = '☰'; // Revert to menu icon
-        }
-    });
+    window.addEventListener('scroll', () => {
+        let st = window.pageYOffset || document.documentElement.scrollTop;
 
-    const handleScroll = () => {
-        if (window.scrollY > 100) {
-            if (window.innerWidth > 600) { // Only apply sticky class on larger screens
-                nav.classList.add('sticky');
+        if (scrollTimeout) {
+            clearTimeout(scrollTimeout);
+        }
+
+        if (st > lastScrollTop && st <= 200) {
+            nav.classList.add('scrolled');
+            nav.classList.remove('awake');
+            nav.style.transform = 'translateY(-100%)';
+        } else if (st <= 200) {
+            nav.classList.add('scrolled');
+            nav.classList.add('awake');
+            nav.style.transform = 'translateY(0)';
+        }
+
+        scrollTimeout = setTimeout(() => {
+            if (st > 200) {
+                nav.classList.add('scrolled');
+                nav.classList.add('awake');
+                nav.style.transform = 'translateY(0)';
             }
-            menuToggle.classList.add('sticky');
-            header.classList.add('hidden');
-        } else {
-            nav.classList.remove('sticky');
-            menuToggle.classList.remove('sticky');
-            header.classList.remove('hidden');
-        }
+        }, 200);
 
-        if (window.innerWidth <= 600 && nav.classList.contains('active')) {
-            nav.classList.remove('active'); // Auto hide menu on mobile when scrolling
-            menuToggle.classList.remove('active');
-            menuToggle.innerHTML = '☰'; // Revert to menu icon
-        }
-    };
-
-    window.addEventListener('scroll', handleScroll);
-
-    if (window.innerWidth <= 600) {
-        const cvLink = document.querySelector('nav ul li a[href="#/cv"]');
-        cvLink.addEventListener('click', (event) => {
-            event.preventDefault();
-            window.open('src/assets/pdf/CV_resume-cytsai.pdf', '_blank');
-        });
-    }
+        lastScrollTop = st <= 0 ? 0 : st;
+    });
 });
