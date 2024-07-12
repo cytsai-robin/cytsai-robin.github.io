@@ -1,5 +1,8 @@
 document.addEventListener('DOMContentLoaded', () => {
     const mainContent = document.getElementById('main-content');
+    const header = document.querySelector('header');
+    const nav = document.querySelector('nav');
+    const menuToggle = document.querySelector('.menu-toggle');
 
     const routes = {
         '#/home': 'home.html',
@@ -19,8 +22,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (pushState) {
                     history.pushState({hash: hash}, '', hash);
                 }
-                document.querySelector('.menu-toggle').classList.remove('active');
-                document.querySelector('nav').classList.remove('active');
                 updateActiveLink(hash);
             })
             .catch(error => console.error('Error loading page:', error));
@@ -43,6 +44,11 @@ document.addEventListener('DOMContentLoaded', () => {
             event.preventDefault();
             const hash = link.getAttribute('href');
             loadPage(hash);
+            if (window.innerWidth <= 600) {
+                nav.classList.remove('active'); // Hide menu on mobile after selection
+                menuToggle.classList.remove('active');
+                menuToggle.innerHTML = '☰'; // Revert to menu icon
+            }
         });
     });
 
@@ -52,11 +58,37 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    const menuToggle = document.querySelector('.menu-toggle');
     menuToggle.addEventListener('click', () => {
         menuToggle.classList.toggle('active');
-        document.querySelector('nav').classList.toggle('active');
+        nav.classList.toggle('active');
+        if (menuToggle.classList.contains('active')) {
+            menuToggle.innerHTML = '&times;'; // Change to close icon
+        } else {
+            menuToggle.innerHTML = '☰'; // Revert to menu icon
+        }
     });
+
+    const handleScroll = () => {
+        if (window.scrollY > 100) {
+            if (window.innerWidth > 600) { // Only apply sticky class on larger screens
+                nav.classList.add('sticky');
+            }
+            menuToggle.classList.add('sticky');
+            header.classList.add('hidden');
+        } else {
+            nav.classList.remove('sticky');
+            menuToggle.classList.remove('sticky');
+            header.classList.remove('hidden');
+        }
+
+        if (window.innerWidth <= 600 && nav.classList.contains('active')) {
+            nav.classList.remove('active'); // Auto hide menu on mobile when scrolling
+            menuToggle.classList.remove('active');
+            menuToggle.innerHTML = '☰'; // Revert to menu icon
+        }
+    };
+
+    window.addEventListener('scroll', handleScroll);
 
     if (window.innerWidth <= 600) {
         const cvLink = document.querySelector('nav ul li a[href="#/cv"]');
